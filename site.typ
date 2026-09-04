@@ -11,8 +11,8 @@
   update_policy: "git",
   fonts: (
     main: (
-      pdf: ("Noto Serif CJK SC", "Noto Serif CJK JP"),
-      web: ("Noto Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong"),
+      pdf: ("Libertinus Serif", "Noto Serif CJK SC", "Noto Serif CJK JP"),
+      web: ("Libertinus Serif", "Noto Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong"),
       weights: "400;700",
       fallback: "serif",
     ),
