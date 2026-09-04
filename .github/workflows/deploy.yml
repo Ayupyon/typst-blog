@@ -1,14 +1,18 @@
-name: Test and deploy to GitHub Pages
+name: Validate and deploy Typst blog
 
 env:
-  TYPST_VERSION: 0.15.0
+  TYPST_VERSION: 0.15.1
   PAGEFIND_VERSION: 1.5.2
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
   workflow_dispatch:
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -16,78 +20,99 @@ permissions:
   id-token: write
 
 jobs:
-  build:
-    name: Test and build
+  validate-and-build:
+    name: Validate and build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout with pinned submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Setup Python
+      - name: Set up Python 3.14
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.14"
 
-      - name: Setup Node
+      - name: Install uv 0.12.9
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.9"
+          enable-cache: true
+
+      - name: Set up Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
-      - name: Install Typst
+      - name: Install Typst ${{ env.TYPST_VERSION }}
         run: |
-          wget -q https://github.com/typst/typst/releases/download/v$TYPST_VERSION/typst-x86_64-unknown-linux-musl.tar.xz
-          tar -xf typst-x86_64-unknown-linux-musl.tar.xz
-          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
-          typst --version
+          curl --fail --silent --show-error --location \
+            "https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" \
+            --output /tmp/typst.tar.xz
+          tar -xf /tmp/typst.tar.xz -C /tmp
+          sudo install /tmp/typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
 
-      - name: Install fonts
+      - name: Install deterministic fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
+          sudo apt-get install --yes fonts-noto-cjk fonts-firacode
 
-      - name: Run unit tests
-        run: python3 -m unittest discover -s vendor/typst-blog-core/dev -p 'test_*.py' -v
+      - name: Confirm tools and pinned submodules
+        run: |
+          uv --version
+          python --version
+          typst --version
+          node --version
+          git submodule status --recursive
+          test "$(git -C vendor/rin-template describe --tags --exact-match)" = "0.3.0"
 
-      - name: Check JavaScript modules
+      - name: Install Python dependencies from lockfile
+        run: uv sync --frozen
+
+      - name: Confirm project Python
+        run: uv run python --version
+
+      - name: Run pinned core tests
+        run: uv run python -m unittest discover -s vendor/typst-blog-core/dev -p 'test_*.py' -v
+
+      - name: Check core JavaScript modules
         run: |
           for js_file in vendor/typst-blog-core/static/scripts/*.js; do
             node --input-type=module --check < "$js_file"
           done
 
-      - name: Build paged example
-        if: ${{ hashFiles('example-post/index.typ') != '' }}
-        run: typst compile --root . example-post/index.typ /tmp/example-post.pdf
+      - name: Compile upstream paged smoke fixture
+        run: |
+          typst compile --root . example-post/index.typ /tmp/example-post.pdf
+          test -s /tmp/example-post.pdf
 
-      - name: Build site
-        run: python3 command.py build
+      - name: Validate all outputs and build Pages artifact
+        run: uv run python scripts/build_site.py
 
-      - name: Build search index
-        run: npx -y pagefind@$PAGEFIND_VERSION --site public
+      - name: Run project tests
+        run: uv run pytest
 
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: public
 
   deploy:
+    name: Deploy to GitHub Pages
     if: github.event_name != 'pull_request'
-    concurrency:
-      group: pages
-      cancel-in-progress: false
+    needs: validate-and-build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy Pages artifact
         id: deployment
         uses: actions/deploy-pages@v4

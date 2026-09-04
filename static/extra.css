@@ -1,0 +1,89 @@
+/* Rin semantic blocks and diagram presentation. */
+
+.rin-block,
+.rin-proof {
+  box-sizing: border-box;
+  margin: 1.75rem 0;
+  padding: 0;
+  border: 1px solid var(--rin-block-color, var(--border-color));
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: var(--rin-block-bg);
+  overflow: hidden;
+  text-align: start;
+}
+
+.rin-block--definition { --rin-block-color: var(--rin-definition); }
+.rin-block--theorem { --rin-block-color: var(--rin-theorem); }
+.rin-block--lemma { --rin-block-color: var(--rin-lemma); }
+.rin-proof {
+  --rin-block-color: var(--rin-proof);
+  background: var(--rin-proof-bg);
+}
+
+.rin-block__heading {
+  padding: 0.7rem 1rem;
+  color: var(--rin-block-color);
+  font-weight: 700;
+  line-height: 1.45;
+  border-bottom: 1px solid color-mix(in srgb, var(--rin-block-color) 38%, var(--border-color));
+}
+
+.rin-block__body {
+  padding: 0.85rem 1rem;
+}
+
+.rin-block__body > :first-child { margin-top: 0; }
+.rin-block__body > :last-child { margin-bottom: 0; }
+.rin-proof .rin-block__heading { font-weight: 600; }
+
+.rin-block__body ul,
+.rin-block__body ol {
+  margin-block: 0.8rem;
+  padding-inline-start: 1.5rem;
+}
+
+.rin-block__body pre,
+.rin-block__body figure,
+.rin-block__body table {
+  max-width: 100%;
+}
+
+.rin-diagram {
+  margin: 2rem 0;
+  text-align: center;
+  overflow: visible;
+}
+
+.rin-diagram__viewport {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--card-bg);
+  text-align: center;
+}
+
+.rin-diagram__viewport svg {
+  display: inline-block;
+  max-width: none;
+  height: auto;
+  vertical-align: middle;
+}
+
+.rin-diagram__caption {
+  margin-top: 0.6rem;
+  color: var(--text-muted);
+}
+
+.rin-block[id],
+.rin-proof[id],
+.rin-diagram[id] {
+  scroll-margin-top: 5rem;
+}
+
+@media (max-width: 600px) {
+  .rin-block__heading,
+  .rin-block__body { padding-inline: 0.8rem; }
+}

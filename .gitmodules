@@ -1,3 +1,6 @@
 [submodule "vendor/typst-blog-core"]
 	path = vendor/typst-blog-core
 	url = https://github.com/minimarimo3/typst-blog-core.git
+[submodule "vendor/rin-template"]
+	path = vendor/rin-template
+	url = https://github.com/Ayupyon/typst-pdf-template.git
