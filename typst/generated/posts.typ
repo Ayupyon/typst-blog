@@ -1,4 +1,14 @@
 #let post-data = (
+  "feature-matrix": (
+    url-slug: "feature-matrix",
+    title: "Typst 集成 · 双输出功能矩阵",
+    create: (year: 2026, month: 9, day: 4, patch: 0),
+    update: none,
+    description: "用于验证 HTML 与 PDF 双输出能力的综合草稿文章。",
+    tags: ("Typst", "集成测试", "中文"),
+    draft: true,
+    source_url_path: "posts/feature-matrix/index.typ",
+  ),
   "hello-dual-output": (
     url-slug: "hello-dual-output",
     title: "Typst · 第一篇双输出记录",
@@ -9,6 +19,26 @@
     draft: false,
     source_url_path: "posts/hello-dual-output/index.typ",
   ),
+  "llvm-misc": (
+    url-slug: "llvm-misc",
+    title: "LLVM · LLVM杂项知识",
+    create: (year: 2026, month: 9, day: 4, patch: 0),
+    update: none,
+    description: "这里整理一些暂时不能被完整归类到特定知识点的LLVM知识点集合。",
+    tags: ("llvm", "compiler"),
+    draft: false,
+    source_url_path: "posts/llvm-misc/index.typ",
+  ),
+  "title-fallback": (
+    url-slug: "title-fallback",
+    title: "没有课程的文章",
+    create: (year: 2026, month: 9, day: 3, patch: 0),
+    update: none,
+    description: "验证没有 course 时网页标题只使用 title。",
+    tags: ("测试",),
+    draft: true,
+    source_url_path: "posts/title-fallback/index.typ",
+  ),
 )
 
 #let tag-slugs = (
@@ -16,5 +46,7 @@
   "集成测试": "~e99b86e68890e6b58be8af95",
   "中文": "~e4b8ade69687",
   "学习记录": "~e5ada6e4b9a0e8aeb0e5bd95",
+  "llvm": "llvm",
+  "compiler": "compiler",
   "测试": "~e6b58be8af95",
 )
