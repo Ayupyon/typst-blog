@@ -110,12 +110,13 @@ Use the helper command to create a draft post with a valid slug:
 uv run python command.py new my-first-post \
   --title "My First Post" \
   --description "A short description of the post." \
+  --course "Typst" \
   --tag Typst
 ```
 
 This creates `posts/my-first-post/index.typ`. Repeat `--tag` for more tags, use
-`--publish` to create a published post, or pass `--date YYYY-MM-DD` for an
-explicit creation date.
+`--course` to add a course/category prefix, `--publish` to create a published
+post, or pass `--date YYYY-MM-DD` for an explicit creation date.
 
 ### 4. Preview locally
 
@@ -148,13 +149,16 @@ Use the helper command to create a draft post with a valid slug:
 uv run python command.py new my-first-post \
   --title "My First Post" \
   --description "A short description of the post." \
+  --course "Typst" \
   --tag Typst
 ```
 
 The created date defaults to the day the command runs and the post starts as a
-draft. Repeat `--tag` for multiple tags, add `--publish` to start published, or
-pass `--date YYYY-MM-DD` for an explicit creation date. A directory with an
-existing slug or reserved URL is rejected.
+draft. The optional `--course` value is written into the post metadata and
+appears as the course/category prefix in web output. Repeat `--tag` for
+multiple tags, add `--publish` to start published, or pass `--date YYYY-MM-DD`
+for an explicit creation date. A directory with an existing slug or reserved
+URL is rejected.
 
 ### Post file format
 

@@ -1,7 +1,7 @@
 #import "/vendor/typst-blog-core/typst/core/site-impl.typ": _site
 
 #let site = _site(
-  title: "Rin's template",
+  title: "Rin's blog",
   description: "Rin's study record",
   base_url: "https://Ayupyon.github.io/typst-blog",
   github_repo: "https://github.com/Ayupyon/typst-blog",

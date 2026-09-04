@@ -29,8 +29,10 @@ path or an uncommitted local file.
 
 Every post must use a lowercase ASCII kebab-case slug and keep the directory
 name equal to that slug. The `post` facade requires `slug`, `title`, `create`,
-and `description`; `draft` defaults to `true`. A `course` prefixes web/feed/SEO
-titles as `Course · Title`, while the PDF document title remains `title`.
+and `description`; `draft` defaults to `true`. `command.py new` accepts an
+optional `--course` value and writes it into the generated metadata. A `course`
+prefixes web/feed/SEO titles as `Course · Title`, while the PDF document title
+remains `title`.
 
 The facade's default visible labels are English: Definition, Theorem, Lemma,
 Proof, Note, Tip, Important, Warning, and Caution. Preserve these defaults when
