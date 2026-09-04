@@ -36,11 +36,11 @@
   })
 }
 
-#let note(body) = _alert("note", "补充", "i", body)
-#let tip(body) = _alert("tip", "提示", "+", body)
-#let important(body) = _alert("important", "重要", "!", body)
-#let warning(body) = _alert("warning", "注意", "⚠", body)
-#let caution(body) = _alert("caution", "警告", "!!", body)
+#let note(body) = _alert("note", "Note", "i", body)
+#let tip(body) = _alert("tip", "Tip", "+", body)
+#let important(body) = _alert("important", "Important", "!", body)
+#let warning(body) = _alert("warning", "Warning", "⚠", body)
+#let caution(body) = _alert("caution", "Caution", "!!", body)
 
 #let raw_html(content) = core-raw-html(content)
 
@@ -65,7 +65,7 @@
   html.div(class: "video-wrapper", {
     html.elem("iframe", attrs: (
       src: embed-url,
-      title: "YouTube 视频播放器",
+      title: "YouTube player",
       frameborder: "0",
       allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
       allowfullscreen: "",
@@ -136,12 +136,12 @@
   body,
 )
 
-// Chinese labels are defaults, while label remains an escape hatch for
-// documents that intentionally use a different language.
-#let definition(topic: none, label: none, body) = _block-wrapper(rin-definition, [定义], topic: topic, label: label, body)
-#let theorem(topic: none, label: none, body) = _block-wrapper(rin-theorem, [定理], topic: topic, label: label, body)
-#let lemma(topic: none, label: none, body) = _block-wrapper(rin-lemma, [引理], topic: topic, label: label, body)
-#let proof(label: [证明。], body) = rin-proof(label: label, body)
+// English labels are the blog defaults, while label remains an escape hatch
+// for documents that intentionally use a different language.
+#let definition(topic: none, label: none, body) = _block-wrapper(rin-definition, [Definition], topic: topic, label: label, body)
+#let theorem(topic: none, label: none, body) = _block-wrapper(rin-theorem, [Theorem], topic: topic, label: label, body)
+#let lemma(topic: none, label: none, body) = _block-wrapper(rin-lemma, [Lemma], topic: topic, label: label, body)
+#let proof(label: [Proof.], body) = rin-proof(label: label, body)
 #let diagram(..args, alt: none, caption: none) = rin-diagram(..args, alt: alt, caption: caption)
 #let conf = rin-conf
 

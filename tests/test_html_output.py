@@ -16,7 +16,7 @@ def soup() -> BeautifulSoup:
     return BeautifulSoup(HTML.read_text(encoding="utf-8"), "html.parser")
 
 
-def test_semantic_chinese_article_and_combined_title() -> None:
+def test_semantic_article_and_combined_title() -> None:
     page = soup()
     title = "Typst · 第一篇双输出记录"
     assert page.html["lang"] == "zh-CN"
@@ -32,7 +32,7 @@ def test_rin_block_anchor_reference_and_pdf_link() -> None:
     page = soup()
     block = page.select_one("figure#dual-output-theorem .rin-block--theorem")
     assert block is not None
-    assert "定理" in block.get_text(" ", strip=True)
+    assert "Theorem" in block.get_text(" ", strip=True)
     assert page.select_one('a[href="#dual-output-theorem"]') is not None
     link = page.select_one(".article-meta a.pdf-download")
     assert link is not None
@@ -71,5 +71,26 @@ def test_feature_matrix_preview_has_accessible_diagram() -> None:
         assert diagram.select_one("figcaption") is not None
         assert page.select_one("#later-theorem") is not None
         assert page.select_one('a[href="#later-theorem"]') is not None
+        for kind, label in (
+            ("definition", "Definition"),
+            ("theorem", "Theorem"),
+            ("lemma", "Lemma"),
+        ):
+            heading = page.select_one(f".rin-block--{kind} .rin-block__heading")
+            assert heading is not None
+            assert label in heading.get_text(" ", strip=True)
+        proof_heading = page.select_one(".rin-proof .rin-block__heading")
+        assert proof_heading is not None
+        assert "Proof." in proof_heading.get_text(" ", strip=True)
+        for kind, label in (
+            ("note", "Note"),
+            ("tip", "Tip"),
+            ("important", "Important"),
+            ("warning", "Warning"),
+            ("caution", "Caution"),
+        ):
+            heading = page.select_one(f".markdown-alert-{kind} .markdown-alert-title")
+            assert heading is not None
+            assert label in heading.get_text(" ", strip=True)
     finally:
         subprocess.run([sys.executable, "scripts/build_site.py"], cwd=ROOT, check=True)
