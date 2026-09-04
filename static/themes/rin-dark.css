@@ -1,0 +1,11 @@
+@import url("./dark.css");
+@import url("../extra.css");
+
+:root {
+  --rin-definition: #60a5fa;
+  --rin-theorem: #c084fc;
+  --rin-lemma: #2dd4bf;
+  --rin-proof: #94a3b8;
+  --rin-block-bg: #202631;
+  --rin-proof-bg: #20242b;
+}
