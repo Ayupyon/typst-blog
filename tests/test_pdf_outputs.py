@@ -35,11 +35,23 @@ def test_feature_matrix_pdf_validation_and_title_fallback(tmp_path: Path) -> Non
             cwd=ROOT,
             check=True,
         )
-    feature_text = "\n".join(page.extract_text() or "" for page in PdfReader(str(feature_pdf)).pages)
+    feature_pages = PdfReader(str(feature_pdf)).pages
+    feature_page_texts = [page.extract_text() or "" for page in feature_pages]
+    feature_text = "\n".join(feature_page_texts)
     assert "Theorem" in feature_text
     assert "Lemma" in feature_text
     assert "Proof." in feature_text
     assert "Diagram 1" in feature_text
+    for label in ("Note", "Tip", "Important", "Warning", "Caution"):
+        assert label in feature_text
+        assert not re.search(rf"{label}\s+\d", feature_text)
+    long_tip_pages = {
+        index
+        for index, page_text in enumerate(feature_page_texts)
+        if "这段较长的提示用于验证" in page_text
+        or "提示框的内容可能包含链接" in page_text
+    }
+    assert len(long_tip_pages) >= 2
     fallback_reader = PdfReader(str(fallback_pdf))
     assert fallback_reader.metadata["/Title"] == "没有课程的文章"
 

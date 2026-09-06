@@ -22,7 +22,8 @@ the Rin dual-output and English authoring details added for this repository.
 - Render Definition, Theorem, Lemma, and Proof blocks with shared numbering and
   same-post references in both targets.
 - Render Note, Tip, Important, Warning, and Caution callouts with semantic HTML
-  classes and matching PDF output.
+  classes and matching PDF output. HTML uses responsive alert cards; PDF uses
+  unnumbered, breakable colored boxes with the icon and label in the title row.
 - Wrap Fletcher 0.5.8 diagrams with required alternative text, optional
   captions, independent numbering, and same-post references in both targets.
 - Generate the home page, post pages, tag pages, tag index, RSS, sitemap, and a

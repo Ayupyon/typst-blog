@@ -6,6 +6,7 @@
 #import "/typst/core/home.typ": home
 #import "/vendor/typst-blog-core/typst/components/embeds.typ": raw_html as core-raw-html
 #import "@preview/fletcher:0.5.8" as fletcher
+#import "@preview/showybox:2.0.4": showybox
 #import "/vendor/rin-template/template/0.3.0/template.typ": (
   conf as rin-conf,
   definition as rin-definition,
@@ -23,9 +24,33 @@
 
 // The core alert implementation predates the site's locale API and hard-codes
 // Japanese headings. Keep its HTML contract while localizing the labels here.
+// The PDF accents follow the site's light-theme alert palette.
+#let _alert-colors = (
+  note: rgb("#2563eb"),
+  tip: rgb("#059669"),
+  important: rgb("#7c3aed"),
+  warning: rgb("#d97706"),
+  caution: rgb("#dc2626"),
+)
+
+#let _paged-alert(kind, title, icon, body) = {
+  let color = _alert-colors.at(kind)
+  showybox(
+    frame: (
+      title-color: color,
+      body-color: color.lighten(92%),
+      border-color: color,
+    ),
+    title-style: (color: white, weight: "bold"),
+    title: [#icon #h(0.5em) #title],
+    breakable: true,
+    body,
+  )
+}
+
 #let _alert(kind, title, icon, body) = context {
   if export-target() == "paged" {
-    return icon + " " + title + ": " + body
+    return _paged-alert(kind, title, icon, body)
   }
   html.div(class: "markdown-alert markdown-alert-" + kind, {
     html.p(class: "markdown-alert-title", {
