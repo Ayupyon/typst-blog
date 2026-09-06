@@ -5,7 +5,7 @@
   title: "usbip转发Windows下USB接口到Linux",
   course: "开发笔记",
   create: calver(2026, 9, 6),
-  description: "记录使用Windows下的usbipd工具和Linux下的usbip工具，将Windows下的USB端口通过网络转发到Linux下使用的过程",
+  description: "记录使用Windows下的usbipd工具和Linux下的usbip工具，将Windows下的USB端口通过网络转发到Linux下使用的过程。",
   tags: ("develop", "usbip"),
   draft: false,
 )
