@@ -10,7 +10,7 @@
   create: calver(2026, 9, 4),
   description: "支配树算法学习记录与LLVM相关源码阅读",
   tags: ("llvm", "compiler"),
-  draft: true,
+  draft: false,
 )
 
 // Write the post body below.
