@@ -63,12 +63,15 @@ def test_feature_matrix_preview_has_accessible_diagram() -> None:
             (ROOT / "public" / "feature-matrix" / "index.html").read_text(encoding="utf-8"),
             "html.parser",
         )
-        diagram = page.select_one("figure.rin-diagram")
+        diagram = page.select_one("figure#simple-diagram > .rin-diagram")
         assert diagram is not None
         assert diagram.get("role") == "img"
         assert diagram.get("aria-label", "").startswith("箭头从对象 A")
+        assert diagram.select_one(".rin-diagram__canvas") is not None
         assert diagram.select_one("svg") is not None
-        assert diagram.select_one("figcaption") is not None
+        assert page.select_one("figure#simple-diagram > figcaption") is not None
+        assert page.select_one('a[href="#simple-diagram"]') is not None
+        assert page.select_one('math[display="block"]') is not None
         assert page.select_one("#later-theorem") is not None
         assert page.select_one('a[href="#later-theorem"]') is not None
         for kind, label in (

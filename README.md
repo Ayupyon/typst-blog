@@ -23,8 +23,8 @@ the Rin dual-output and English authoring details added for this repository.
   same-post references in both targets.
 - Render Note, Tip, Important, Warning, and Caution callouts with semantic HTML
   classes and matching PDF output.
-- Wrap Fletcher 0.5.8 diagrams with required alternative text and an optional
-  caption.
+- Wrap Fletcher 0.5.8 diagrams with required alternative text, optional
+  captions, independent numbering, and same-post references in both targets.
 - Generate the home page, post pages, tag pages, tag index, RSS, sitemap, and a
   Pagefind search index.
 - Publish the contents of `public/` to GitHub Pages with the included workflow.
@@ -243,11 +243,18 @@ Every `diagram` call must provide non-empty `alt` text:
   alt: "An arrow from A to B",
   caption: [A simple morphism.],
 )
+<simple-diagram>
+
+See @simple-diagram.
 ```
 
-The diagram is an inline SVG in HTML and a figure in the PDF. Put important
-relationships in the alternative text, caption, or nearby prose because SVG
-paths are not searchable text.
+The diagram is an accessible inline SVG inside a numbered figure in HTML and a
+centered figure in the PDF. A caption displays the `Diagram N` number; adding a
+label after the call enables `@label` references. Put important relationships
+in the alternative text, caption, or nearby prose because SVG paths are not
+searchable text. Wide display equations gain a horizontal scrollbar in HTML;
+paragraphs containing inline equations keep normal start alignment so CJK text
+is not stretched by justification.
 
 ### Drafts and publishing
 
@@ -335,11 +342,11 @@ Add the domain to `static/CNAME` (or `CNAME` at the repository root) and set
 ### Switch themes
 
 Set `theme` in `site.typ` to a CSS file under `static/themes/`. This repository
-ships `rin-dark.css`, which layers the core dark theme with the Rin block and
-diagram styles.
+ships `rin-light.css` as the default, which layers the core light theme with
+the Rin block and diagram styles, and also includes `rin-dark.css`.
 
 ```typst
-theme: "rin-dark"
+theme: "rin-light"
 ```
 
 ### Create your own theme

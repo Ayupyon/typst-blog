@@ -6,7 +6,7 @@
   base_url: "https://Ayupyon.github.io/typst-blog",
   github_repo: "https://github.com/Ayupyon/typst-blog",
   language: "zh-CN",
-  theme: "rin-dark",
+  theme: "rin-light",
   posts_dir: "posts",
   update_policy: "git",
   fonts: (

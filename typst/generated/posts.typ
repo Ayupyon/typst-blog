@@ -19,6 +19,16 @@
     draft: false,
     source_url_path: "posts/hello-dual-output/index.typ",
   ),
+  "llvm-domtree-build": (
+    url-slug: "llvm-domtree-build",
+    title: "LLVM · 支配树构建",
+    create: (year: 2026, month: 9, day: 4, patch: 0),
+    update: none,
+    description: "支配树算法学习记录与LLVM相关源码阅读",
+    tags: ("llvm", "compiler"),
+    draft: true,
+    source_url_path: "posts/llvm-domtree-build/index.typ",
+  ),
   "llvm-misc": (
     url-slug: "llvm-misc",
     title: "LLVM · LLVM杂项知识",
