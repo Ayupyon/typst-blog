@@ -6,6 +6,29 @@
   margin-block: 0.85em;
 }
 
+/* Match theorem boxes: keep the title and body as separate padded sections
+   with a full-width divider between them. */
+.article-body .markdown-alert {
+  --alert-accent: var(--border-color);
+  padding: 0;
+}
+
+.article-body .markdown-alert-note { --alert-accent: var(--color-note-border); }
+.article-body .markdown-alert-tip { --alert-accent: var(--color-tip-border); }
+.article-body .markdown-alert-important { --alert-accent: var(--color-important-border); }
+.article-body .markdown-alert-warning { --alert-accent: var(--color-warning-border); }
+.article-body .markdown-alert-caution { --alert-accent: var(--color-caution-border); }
+
+.article-body .markdown-alert > .markdown-alert-title {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--alert-accent) 38%, var(--border-color));
+}
+
+.article-body .markdown-alert > .markdown-alert-content {
+  padding: 0.85rem 1rem;
+}
+
 /* Justification expands every CJK gap around inline MathML. Keep formula
    paragraphs in normal reading order while leaving plain prose justified. */
 .article-body p:has(math:not([display="block"])) {
