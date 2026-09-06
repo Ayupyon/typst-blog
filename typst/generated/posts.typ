@@ -1,9 +1,19 @@
 #let post-data = (
+  "usbip-forward-windows-to-linux": (
+    url-slug: "usbip-forward-windows-to-linux",
+    title: "开发笔记 · usbip转发Windows下USB接口到Linux",
+    create: (year: 2026, month: 9, day: 6, patch: 0),
+    update: none,
+    description: "记录使用Windows下的usbipd工具和Linux下的usbip工具，将Windows下的USB端口通过网络转发到Linux下使用的过程",
+    tags: ("develop", "usbip"),
+    draft: true,
+    source_url_path: "posts/usbip-forward-windows-to-linux/index.typ",
+  ),
   "feature-matrix": (
     url-slug: "feature-matrix",
     title: "Typst 集成 · 双输出功能矩阵",
     create: (year: 2026, month: 9, day: 4, patch: 0),
-    update: none,
+    update: (year: 2026, month: 9, day: 6, patch: 0),
     description: "用于验证 HTML 与 PDF 双输出能力的综合草稿文章。",
     tags: ("Typst", "集成测试", "中文"),
     draft: true,
@@ -23,10 +33,10 @@
     url-slug: "llvm-domtree-build",
     title: "LLVM · 支配树构建",
     create: (year: 2026, month: 9, day: 4, patch: 0),
-    update: none,
+    update: (year: 2026, month: 9, day: 6, patch: 0),
     description: "支配树算法学习记录与LLVM相关源码阅读",
     tags: ("llvm", "compiler"),
-    draft: true,
+    draft: false,
     source_url_path: "posts/llvm-domtree-build/index.typ",
   ),
   "llvm-misc": (
@@ -52,6 +62,8 @@
 )
 
 #let tag-slugs = (
+  "develop": "develop",
+  "usbip": "usbip",
   "Typst": "Typst",
   "集成测试": "~e99b86e68890e6b58be8af95",
   "中文": "~e4b8ade69687",
