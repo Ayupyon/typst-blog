@@ -1,9 +1,39 @@
 /* Rin semantic blocks and diagram presentation. */
 
+/* The core article stylesheet leaves generous whitespace around every
+   paragraph and figure. Keep the reading rhythm compact around Rin blocks. */
+.article-body p {
+  margin-block: 0.85em;
+}
+
+/* Justification expands every CJK gap around inline MathML. Keep formula
+   paragraphs in normal reading order while leaving plain prose justified. */
+.article-body p:has(math:not([display="block"])) {
+  text-align: start;
+}
+
+.article-body > figure {
+  margin-block: 1rem;
+}
+
+/* Keep Typst's native MathML display mode: CSS display:block makes Chromium
+   line-break each child vertically instead of allowing horizontal scrolling. */
+.article-body math[display="block"] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin-block: 0.85em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25rem;
+  text-align: center;
+  overscroll-behavior-x: contain;
+}
+
 .rin-block,
 .rin-proof {
   box-sizing: border-box;
-  margin: 1.75rem 0;
+  margin: 0;
   padding: 0;
   border: 1px solid var(--rin-block-color, var(--border-color));
   border-left-width: 4px;
@@ -19,6 +49,7 @@
 .rin-proof {
   --rin-block-color: var(--rin-proof);
   background: var(--rin-proof-bg);
+  margin-block: 0.85rem;
 }
 
 .rin-block__heading {
@@ -49,10 +80,19 @@
   max-width: 100%;
 }
 
+.rin-block__body > figure {
+  margin-block: 1rem;
+}
+
 .rin-diagram {
-  margin: 2rem 0;
+  margin: 0;
   text-align: center;
   overflow: visible;
+}
+
+figure:has(> .rin-diagram) {
+  overflow: visible;
+  scroll-margin-top: 5rem;
 }
 
 .rin-diagram__viewport {
@@ -61,25 +101,36 @@
   padding: 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--card-bg);
+  background: var(--figure-bg);
   text-align: center;
 }
 
+.rin-diagram__canvas {
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  min-width: 100%;
+}
+
 .rin-diagram__viewport svg {
-  display: inline-block;
+  display: block;
+  flex: 0 0 auto;
   max-width: none;
   height: auto;
+  margin-inline: auto;
   vertical-align: middle;
 }
 
-.rin-diagram__caption {
+.rin-diagram__caption,
+figure:has(> .rin-diagram) > figcaption {
   margin-top: 0.6rem;
   color: var(--text-muted);
 }
 
 .rin-block[id],
 .rin-proof[id],
-.rin-diagram[id] {
+.rin-diagram[id],
+figure:has(> .rin-diagram)[id] {
   scroll-margin-top: 5rem;
 }
 

@@ -38,8 +38,17 @@ The facade's default visible labels are English: Definition, Theorem, Lemma,
 Proof, Note, Tip, Important, Warning, and Caution. Preserve these defaults when
 adding fixtures unless a test explicitly covers a label override. Fletcher
 diagrams must use the facade's `diagram(...)` wrapper and provide non-empty
-alternative text. Keep important diagram relationships in `alt`, captions, or
-nearby prose so they remain available to screen readers and search.
+alternative text. Add a label after a diagram when prose needs to refer to it
+(`#diagram(...) <diagram-label>` followed by `@diagram-label`). Captions display
+independent Diagram numbering in both outputs. Keep important diagram
+relationships in `alt`, captions, or nearby prose so they remain available to
+screen readers and search.
+
+Native HTML MathML must keep Typst's generated display mode. The stylesheet may
+add horizontal overflow to display equations, but must not force them to
+`display: block`, which makes Chromium stack equation children vertically.
+Paragraphs containing inline equations should use start alignment rather than
+justification so CJK spacing remains readable.
 
 ## Reproducible commands
 

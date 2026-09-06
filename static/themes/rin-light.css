@@ -1,0 +1,11 @@
+@import url("./light.css");
+@import url("../extra.css");
+
+:root {
+  --rin-definition: #2563eb;
+  --rin-theorem: #7c3aed;
+  --rin-lemma: #0d9488;
+  --rin-proof: #64748b;
+  --rin-block-bg: #eff6ff;
+  --rin-proof-bg: #f8fafc;
+}

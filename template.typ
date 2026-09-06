@@ -5,13 +5,13 @@
 #import "/typst/core/article.typ": article as web-article, env
 #import "/typst/core/home.typ": home
 #import "/vendor/typst-blog-core/typst/components/embeds.typ": raw_html as core-raw-html
+#import "@preview/fletcher:0.5.8" as fletcher
 #import "/vendor/rin-template/template/0.3.0/template.typ": (
   conf as rin-conf,
   definition as rin-definition,
   theorem as rin-theorem,
   lemma as rin-lemma,
   proof as rin-proof,
-  diagram as rin-diagram,
   node,
   edge,
   with-rin-rules,
@@ -142,7 +142,52 @@
 #let theorem(topic: none, label: none, body) = _block-wrapper(rin-theorem, [Theorem], topic: topic, label: label, body)
 #let lemma(topic: none, label: none, body) = _block-wrapper(rin-lemma, [Lemma], topic: topic, label: label, body)
 #let proof(label: [Proof.], body) = rin-proof(label: label, body)
-#let diagram(..args, alt: none, caption: none) = rin-diagram(..args, alt: alt, caption: caption)
+#let _checked-diagram-alt(alt) = {
+  assert(
+    type(alt) == str and alt.trim() != "",
+    message: "diagram requires non-empty alt text",
+  )
+  alt
+}
+
+// Keep diagrams in Typst's figure/reference model for both output targets.
+// The HTML renderer adds an accessible Rin wrapper around the inline SVG,
+// while the paged renderer centers the same Fletcher content explicitly.
+#let diagram(..args, alt: none, caption: none) = {
+  let alt = _checked-diagram-alt(alt)
+  let rendered = fletcher.diagram(..args)
+  figure(
+    kind: "diagram",
+    supplement: [Diagram],
+    numbering: n => str(n),
+    caption: caption,
+    outlined: false,
+    placement: none,
+    context {
+      if target() == "html" {
+        html.elem(
+          "div",
+          attrs: (
+            class: "rin-diagram",
+            role: "img",
+            "aria-label": alt,
+          ),
+          html.elem(
+            "div",
+            attrs: (class: "rin-diagram__viewport"),
+            html.elem(
+              "div",
+              attrs: (class: "rin-diagram__canvas"),
+              html.frame(rendered),
+            ),
+          ),
+        )
+      } else {
+        align(center, rendered)
+      }
+    },
+  )
+}
 #let conf = rin-conf
 
 // Canonical authoring API. The enriched metadata keeps the original PDF title

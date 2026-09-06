@@ -35,10 +35,11 @@ def test_feature_matrix_pdf_validation_and_title_fallback(tmp_path: Path) -> Non
             cwd=ROOT,
             check=True,
         )
-    feature_text = PdfReader(str(feature_pdf)).pages[0].extract_text() or ""
+    feature_text = "\n".join(page.extract_text() or "" for page in PdfReader(str(feature_pdf)).pages)
     assert "Theorem" in feature_text
     assert "Lemma" in feature_text
     assert "Proof." in feature_text
+    assert "Diagram 1" in feature_text
     fallback_reader = PdfReader(str(fallback_pdf))
     assert fallback_reader.metadata["/Title"] == "没有课程的文章"
 
