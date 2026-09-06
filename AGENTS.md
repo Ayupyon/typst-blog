@@ -44,6 +44,10 @@ independent Diagram numbering in both outputs. Keep important diagram
 relationships in `alt`, captions, or nearby prose so they remain available to
 screen readers and search.
 
+Alert helpers keep Note, Tip, Important, Warning, and Caution unnumbered. They
+render semantic alert cards in HTML and breakable colored boxes with an icon
+and label title row in PDF; preserve the body as native Typst content.
+
 Native HTML MathML must keep Typst's generated display mode. The stylesheet may
 add horizontal overflow to display equations, but must not force them to
 `display: block`, which makes Chromium stack equation children vertically.
