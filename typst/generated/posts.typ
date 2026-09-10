@@ -1,12 +1,22 @@
 #let post-data = (
+  "pixel-flash-aosp-images": (
+    url-slug: "pixel-flash-aosp-images",
+    title: "AOSP开发 · Pixel手机刷入AOSP镜像",
+    create: (year: 2026, month: 9, day: 10, patch: 0),
+    update: none,
+    description: "记录将AOSP源码编译得到的镜像刷入Pixel手机的两种方法，其中第一种方法需要依赖Google提供的设备驱动文件（在Android16及以后Google不再提供），第二种方法通用性更强。",
+    tags: ("develop", "aosp"),
+    draft: true,
+    source_url_path: "posts/pixel-flash-aosp-images/index.typ",
+  ),
   "usbip-forward-windows-to-linux": (
     url-slug: "usbip-forward-windows-to-linux",
     title: "开发笔记 · usbip转发Windows下USB接口到Linux",
     create: (year: 2026, month: 9, day: 6, patch: 0),
-    update: none,
-    description: "记录使用Windows下的usbipd工具和Linux下的usbip工具，将Windows下的USB端口通过网络转发到Linux下使用的过程",
+    update: (year: 2026, month: 9, day: 9, patch: 0),
+    description: "记录使用Windows下的usbipd工具和Linux下的usbip工具，将Windows下的USB端口通过网络转发到Linux下使用的过程。",
     tags: ("develop", "usbip"),
-    draft: true,
+    draft: false,
     source_url_path: "posts/usbip-forward-windows-to-linux/index.typ",
   ),
   "feature-matrix": (
@@ -63,6 +73,7 @@
 
 #let tag-slugs = (
   "develop": "develop",
+  "aosp": "aosp",
   "usbip": "usbip",
   "Typst": "Typst",
   "集成测试": "~e99b86e68890e6b58be8af95",
