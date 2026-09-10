@@ -107,3 +107,19 @@ Bus 003 Device 003: ID 18d1:4ee7 Google Inc. Nexus/Pixel Device (charging + debu
 ```
 
 接下来就可以和正常使用本地USB端口连接的设备一样使用它了，只不过数据交换速率会受到网速限制。
+
+#note[
+  重启server后，可能需要手动启用`vhci_hcd`内核模块才能正常使用linux
+  server上的usbip：
+
+  ```shell-unix-generic
+  sudo modprobe vhci_hcd
+  ```
+
+  否则usbip执行时可能会报错：
+
+  ```
+  libusbip: error: udev_device_new_from_subsystem_sysname failed
+  usbip: error: open vhci_driver (is vhci_hcd loaded?)
+  ```
+]
